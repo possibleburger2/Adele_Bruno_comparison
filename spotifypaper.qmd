@@ -14,7 +14,7 @@ number-sections: true
 bibliography: references.bib
 ---
 # Introduction
-This study utilizes R packages [@citeR] to clean and analyze Spotify playlist data, employing libraries such as **spotifyr** [@citespotifyr], **dplyr** [@citedplyr], **ggplot2** [@citeggplot], and **tidyverse** [@citetidyverse]. The data was retrieved from Spotify's API using the **spotifyr** package [@spotifyr].
+This study utilizes R packages [@citeR] to clean and analyze Spotify playlist data, employing libraries such as **spotifyr** [@spotifyr], **dplyr** [@citedplyr], **ggplot2** [@citeggplot], and **tidyverse** [@tidyverse]. The data was retrieved from Spotify's API [@spotifyAPI]
 
 ```{r}
 #| include: false
