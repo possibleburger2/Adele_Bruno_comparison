@@ -41,13 +41,14 @@ This study uses R packages [@citeR] to clean and analyze the dataset, including 
 
 
 
-# Estimates and the Actual Number of Respondents
+# Graphing comparisons between Lady Gaga and Bruno Mars
 
 ```{r}
-#| label: fig-data-summary
+#| label: valence-data
 #| fig-cap: Bruno Mars lady gaga valence comparison graph
 #| echo: false
 #| warning: false
+#| message: false
 rbind(lady_gaga, bruno_mars) |>
   select(artist_name, album_release_date, energy) |>
   mutate(album_release_date = ymd(album_release_date)) |> 
@@ -58,7 +59,7 @@ rbind(lady_gaga, bruno_mars) |>
   facet_wrap(facets = vars(artist_name), dir = "v") +
   labs(
     x = "Album release date",
-    y = "Valence",
+    y = "Energy",
     color = "Artist"
   ) +
   scale_color_brewer(palette = "Set1") +
@@ -81,7 +82,7 @@ rbind(lady_gaga, bruno_mars) |>
   theme(legend.position = "bottom")
 ```
 
-@fig-data-summary shows comparison of blah blah
+@valence-data shows comparison of blah blah
 
 \newpage
 
