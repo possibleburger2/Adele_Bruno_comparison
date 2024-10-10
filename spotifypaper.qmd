@@ -1,0 +1,80 @@
+---
+title: "Analysis of  spotify playlist "
+author: 
+  - Daniel Xu
+  - Dennis Netchitailo
+  - Maria Mangru
+thanks: "Code and data are available at: [TEMPNAME](https://github.com/possibleburger2/WHUNGEr)."
+date: today
+date-format: long
+abstract: "This document analyzes something on spotify."
+format: pdf
+toc: true
+number-sections: true
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
+
+library(spotifyr)
+library(dplyr)
+library(ggplot2)
+library(tidyverse)
+
+#Use IDs stored on system to access api
+access_token <- get_spotify_access_token()
+
+#Load artist information
+bruno_mars <- get_artist_audio_features(artist = 'bruno mars')
+lady_gaga <- get_artist_audio_features(artist = 'adele')
+
+saveRDS(bruno_mars, "bruno_mars.rds")
+saveRDS(lady_gaga, "lady_gaga.rds")
+
+```
+
+# Introduction
+This study uses R packages [@citeR] to clean and analyze the dataset, including libraries from haven [@citehaven], dplyr [@citedplyr], readr [@citereadr], kableExtra [@citeknitr], and ggplot2 [@citeggplot]. The data we used is from IPUMS [@citedata].
+
+
+
+# Estimates and the Actual Number of Respondents
+
+```{r}
+#| label: fig-data-summary
+#| fig-cap: Bruno Mars lady gaga valence comparison graph
+#| echo: false
+rbind(lady_gaga, bruno_mars) |>
+  select(artist_name, album_release_date, valence) |>
+  mutate(album_release_date = ymd(album_release_date)) |> 
+  ggplot(aes( x = album_release_date, y = valence, color = artist_name)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth() +
+  theme_minimal() +
+  facet_wrap(facets = vars(artist_name), dir = "v") +
+  labs(
+    x = "Album release date",
+    y = "Valence",
+    color = "Artist"
+  ) +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+```
+
+@fig-data-summary shows comparison of blah blah
+
+\newpage
+
+\appendix
+
+# Appendix {-}
+
+# Instructions on How to Obtain the Data
+
+
+\newpage
+
+# References
