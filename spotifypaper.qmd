@@ -47,6 +47,23 @@ This study uses R packages [@citeR] to clean and analyze the dataset, including 
 #| label: fig-data-summary
 #| fig-cap: Bruno Mars lady gaga valence comparison graph
 #| echo: false
+#| warning: false
+rbind(lady_gaga, bruno_mars) |>
+  select(artist_name, album_release_date, energy) |>
+  mutate(album_release_date = ymd(album_release_date)) |> 
+  ggplot(aes( x = album_release_date, y = energy, color = artist_name)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth() +
+  theme_minimal() +
+  facet_wrap(facets = vars(artist_name), dir = "v") +
+  labs(
+    x = "Album release date",
+    y = "Valence",
+    color = "Artist"
+  ) +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+
 rbind(lady_gaga, bruno_mars) |>
   select(artist_name, album_release_date, valence) |>
   mutate(album_release_date = ymd(album_release_date)) |> 
