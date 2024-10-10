@@ -4,15 +4,17 @@ author:
   - Daniel Xu
   - Dennis Netchitailo
   - Maria Mangru
-thanks: "Code and data are available at: [TEMPNAME](https://github.com/possibleburger2/WHUNGEr)."
+thanks: "Code and data are available at: [Comparison of Adele and Bruno Mars](https://github.com/possibleburger2/Adele_Bruno_comparison)."
 date: today
 date-format: long
-abstract: "This document analyzes something on spotify."
+abstract: "This document analyzes the difference in Adele and Bruno Mars' albums over time."
 format: pdf
 toc: true
 number-sections: true
 bibliography: references.bib
 ---
+# Introduction
+This study utilizes R packages [@citeR] to clean and analyze Spotify playlist data, employing libraries such as **spotifyr** [@citespotifyr], **dplyr** [@citedplyr], **ggplot2** [@citeggplot], and **tidyverse** [@citetidyverse]. The data was retrieved from Spotify's API using the **spotifyr** package [@spotifyr].
 
 ```{r}
 #| include: false
@@ -39,13 +41,17 @@ saveRDS(lady_gaga, "lady_gaga.rds")
 # Introduction
 This study uses R packages [@citeR] to clean and analyze the dataset, including libraries from haven [@citehaven], dplyr [@citedplyr], readr [@citereadr], kableExtra [@citeknitr], and ggplot2 [@citeggplot]. The data we used is from IPUMS [@citedata].
 
+# Overview of terms
+The two famous artists chosen for comparison are Adele and Bruno Mars. 
 
+There are two units of analysis: energy & valence. 
+Energy measures the intensity and activity of music. It ranges from 0 (calm, soft, or relaxed) to 1 (energetic, loud or dynamic). Valence measures the positivity of a song, ranging from 0 (negative, sad, or angry) to 1 (positive, happy, or cheerful).
 
 # Graphing comparisons between Lady Gaga and Bruno Mars
 
 ```{r}
 #| label: valence-data
-#| fig-cap: Bruno Mars lady gaga valence comparison graph
+#| fig-cap: Bruno Mars lady gaga energy comparison graph
 #| echo: false
 #| warning: false
 #| message: false
@@ -64,7 +70,14 @@ rbind(lady_gaga, bruno_mars) |>
   ) +
   scale_color_brewer(palette = "Set1") +
   theme(legend.position = "bottom")
+```
 
+```{r}
+#| label: valence-data
+#| fig-cap: Bruno Mars lady gaga valence comparison graph
+#| echo: false
+#| warning: false
+#| message: false
 rbind(lady_gaga, bruno_mars) |>
   select(artist_name, album_release_date, valence) |>
   mutate(album_release_date = ymd(album_release_date)) |> 
@@ -82,7 +95,16 @@ rbind(lady_gaga, bruno_mars) |>
   theme(legend.position = "bottom")
 ```
 
-@valence-data shows comparison of blah blah
+Bruno Mars has an energy level almost double that of Adele — 0.65 compared to 0.35. Over time, Bruno Mars has maintained a fairly constant level of energy, although the mid-2010s had a dip, then returned to its previous level, before dipping again by the 2020s.  
+
+In comparison, Adele started quite low, then nearly doubled her energy level, and finally finished by maintaining a stable 0.5 level.  
+
+The graph helps compare the change over nearly the same period of time, showing that both artists had variations in the energy levels of their songs. However, for both artists, the change has been relatively moderate.   
+
+For valence, both artist's levels changed, but overall, not significantly. Adele's valence level has trended downward. Bruno Mars' valence level has trended upwards. In both cases, the change is gradual, and would likely not be noticeable to the casual listener. For fans, the change in energy & valance is likely great enough to be noticeable, although the variation over time has not been extreme. 
+
+An interesting observation is that the variation within each album has generally been greater for Adelle. Her albums have had variations of more than 50 levels.In comparison, Bruno Mars's albums tend to be grouped together in terms of energy especially. With this, it can be understood that Bruno Mars's albums tend to be more standardized in terms of musical elements, namely: energy. And the levels tend to be mid-to-high. Adelle' albums capture a wider range of energy levels: from low to high.
+
 
 \newpage
 
@@ -90,7 +112,8 @@ rbind(lady_gaga, bruno_mars) |>
 
 # Appendix {-}
 
-# Instructions on How to Obtain the Data
+# Instructions on How to Obtaining the Data
+We used the Spotify Api along with Spotifyr to access the data. We created spotify developer accounts to create apps in order to get the API IDs. This won't be necessary for the reader since all the required data is in the repository.
 
 
 \newpage
